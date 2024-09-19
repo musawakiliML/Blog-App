@@ -11,7 +11,12 @@ WORKDIR /code
 
 # Install Dependencies
 COPY Pipfile Pipfile.lock /code/
-RUN pip install pipenv && pipenv install --system
+RUN pip install --upgrade pip && pip install pipenv
+RUN pipenv install --deploy --ignore-pipfile
+
+# Check installed packages (for debugging)
+RUN pip list
+
 
 # Copy Project
 COPY . /code/
